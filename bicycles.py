@@ -42,7 +42,7 @@ class Bicycle_Shop(object):
       print "Here is your '{0}'.  That will be ${1:.2f}, please.".format(bicycle.name, sale_price)
       self.inventory[bicycle.name]['quantity'] = self.inventory[bicycle.name]['quantity'] - 1
       self.profit = self.profit + sale_price
-      return self.inventory[bicycle.name]['bicycle']
+      return self.inventory[bicycle.name]['bicycle'], sale_price
     else:
       print "Sorry, we don't have the '{}' in stock.".format(bicycle.name)
       return None
@@ -69,30 +69,30 @@ class Customer(object):
     bikes = shop.search_by_price(self.fund)
     if bikes:
       bike = random.choice(bikes)
-      self.bicycle = shop.sell_bicycle(bike)
-      #TODO calculate remaining funds
+      self.bicycle, price = shop.sell_bicycle(bike)
+      self.fund = self.fund - price
   
 if __name__ == '__main__':
   roadmax = Bicycle('Roadmax 1985', 50, 100)
   print roadmax
   racestar = Bicycle('Racestar 20xx', 12, 400)
   print racestar
+  brains = Bicycle('Moremoneythanbrains 1%', 10, 600)
+  print brains
   shop = Bicycle_Shop('OMG Bikes', 20)
   print shop
   shop.add_inventory(roadmax, 2)
   shop.add_inventory(racestar, 1)
-  shop.print_inventory()
-  shop.add_inventory(racestar, 2)
+  shop.add_inventory(brains, 1)
   shop.print_inventory()
   shop.print_profit()
   shop.sell_bicycle(roadmax)
-  shop.print_inventory()
-  shop.print_profit()
   print shop
   bob = Customer('Bob', 200.0)
   print bob
+  print shop.search_by_price(bob.fund)
   jim = Customer('Jim', 500.0)
   print jim
-  print shop.search_by_price(bob.fund)
   jim.buy_bicycle(shop)
   print jim
+  print shop
