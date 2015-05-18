@@ -37,8 +37,9 @@ class Bicycle_Shop(object):
     self.print_profit()
 
 class Customer(object):
-  def __init__(self, name):
+  def __init__(self, name, fund):
     self.name = name
+    self.fund = fund
   
 if __name__ == '__main__':
   roadmax = Bicycle('Roadmax 1985', 50, 180)
