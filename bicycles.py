@@ -1,3 +1,5 @@
+import random
+
 class Bicycle(object):
   def __init__(self, name, weight, cost):
     self.name = name
@@ -65,7 +67,10 @@ class Customer(object):
     
   def buy_bicycle(self, shop):
     bikes = shop.search_by_price(self.fund)
-    print bikes
+    if bikes:
+      bike = random.choice(bikes)
+      self.bicycle = shop.sell_bicycle(bike)
+      #TODO calculate remaining funds
   
 if __name__ == '__main__':
   roadmax = Bicycle('Roadmax 1985', 50, 100)
@@ -90,3 +95,4 @@ if __name__ == '__main__':
   print jim
   print shop.search_by_price(bob.fund)
   jim.buy_bicycle(shop)
+  print jim
